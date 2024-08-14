@@ -20,11 +20,16 @@ The application offers the following features:
    Displays a welcome message and navigation instructions based on the user agent. If accessed by non-CLI user agents, a denial page is shown.
 
 2. **`/portfolio`**  
-   Shows a list of projects and their descriptions.
+   Shows a list of projects and their descriptions, accessible in a text-based format for CLI users.
 
 3. **`/resume`**  
-   Provides a detailed resume including education, skills, certifications, and work experience.
+   Provides a detailed resume including education, skills, certifications, and work experience in a text-based format.
 
+4. **`/about`**  
+   Shares background information and the professional journey of the user in a text-based format.
+
+5. **`/contact`**  
+   Displays contact information in a text-based format.
 
 ## Installation
 
@@ -43,6 +48,8 @@ To run this project locally, follow these steps:
    ```bash
    python3 app.py 
 
+The application will be accessible at http://127.0.0.1:5000.
+
 ## Help
 
 Page Not Loading?
@@ -55,10 +62,4 @@ Deploying the Application?
 
 For deployment, make sure the application is behind a WSGI server and reverse proxy. In this case, line 99 in app.py should be updated to:
 
-    app.run()   
-
-5. **`/about`**  
-   Shares background information and my professional journey.
-
-6. **`/contact`**  
-   Displays contact information.
+    app.run()
