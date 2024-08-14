@@ -25,8 +25,40 @@ The application offers the following features:
 3. **`/resume`**  
    Provides a detailed resume including education, skills, certifications, and work experience.
 
-4. **`/about`**  
+
+## Installation
+
+To run this project locally, follow these steps:
+
+1. **Clone the Repository**  
+   ```bash
+   git clone https://github.com/AlteredMinds/CLI_Webapp.git
+   cd CLI_Webapp
+2. **Install Dependencies**
+   Ensure you have Python 3.8 installed, then install the required packages:
+   ```bash
+   pip install Flask
+4. **Run the Application**  
+   Start the application by navigating to the directory containing app.py and running:
+   ```bash
+   python3 app.py 
+
+## Help
+
+Page Not Loading?
+
+If you're having trouble loading the page, ensure the application is running in debug mode. Verify that line 99 in app.py is set as follows:
+
+    app.run(debug=True, host='0.0.0.0')
+
+Deploying the Application?
+
+For deployment, make sure the application is behind a WSGI server and reverse proxy. In this case, line 99 in app.py should be updated to:
+
+    app.run()   
+
+5. **`/about`**  
    Shares background information and my professional journey.
 
-5. **`/contact`**  
+6. **`/contact`**  
    Displays contact information.
