@@ -12,229 +12,215 @@ def is_cli_user_agent(user_agent):
     
 def get_instructions(user_agent):
     if 'curl' in user_agent.lower():
-        return "Use 'curl https://chris.bates.contact/{route}' to navigate."
+        return "\x1B[38;2;135;192;137mUse 'curl https://chris.bates.contact/{route}' to navigate.\x1b[0m"
     elif 'powershell' in user_agent.lower():
-        return "Use 'Write-Host (Invoke-WebRequest https://chris.bates.contact/{route}).Content' to navigate."
+        return "\x1B[38;2;135;192;137mUse 'Write-Host (Invoke-WebRequest https://chris.bates.contact/{route}).Content' to navigate.\x1b[0m"
     return ""    
 
-HOME_TEMPLATE = r"""
+HOME_TEMPLATE = """
 ---
 
 
 
+\x1B[38;2;69;93;210m██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗██╗\x1b[0m
+\x1B[38;2;69;93;190m██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝██║\x1b[0m
+\x1B[38;2;69;93;170m██║ █╗ ██║█████╗  ██║     ██║     ██║   ██║██╔████╔██║█████╗  ██║\x1b[0m
+\x1B[38;2;69;93;150m██║███╗██║██╔══╝  ██║     ██║     ██║   ██║██║╚██╔╝██║██╔══╝  ╚═╝\x1b[0m
+\x1B[38;2;69;93;130m╚███╔███╔╝███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗██╗\x1b[0m
+\x1B[38;2;69;93;110m ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═╝\x1b[0m
 
-
-
-██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗██╗
-██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝██║
-██║ █╗ ██║█████╗  ██║     ██║     ██║   ██║██╔████╔██║█████╗  ██║
-██║███╗██║██╔══╝  ██║     ██║     ██║   ██║██║╚██╔╝██║██╔══╝  ╚═╝
-╚███╔███╔╝███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗██╗
- ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═╝
-
-
-I’m Chris Bates, a dedicated IT student with a passion for technology and a drive to learn. 
+\x1B[38;2;107;255;149mI’m Chris Bates, a dedicated IT student with a passion for technology and a drive to learn. 
 Currently, I'm pursuing a degree in Cybersecurity at Ozark Technical Community College, while seeking
-a challanging role in IT to hone and expand my skills. 
+a challanging role in IT to hone and expand my skills.\x1b[0m
 
-Feel free to explore the following routes to learn more about me and my work:
+\x1b[38;5;208mFeel free to explore the following routes to learn more about me and my work:\x1b[0m
 
-> /portfolio     - Explore my projects
-> /resume        - View my resume
-> /about         - Learn more about me
-> /contact       - Get in touch with me
+> \x1b[38;5;113m/portfolio\x1b[0m     - Explore my projects
+> \x1b[38;5;113m/resume\x1b[0m        - View my resume
+> \x1b[38;5;113m/about\x1b[0m         - Learn more about me
+> \x1b[38;5;113m/contact\x1b[0m       - Get in touch with me
 
-Thank you for visiting!
+\x1B[38;2;107;255;149mThank you for visiting!\x1b[0m
 
 {instructions}
 """
 
-PORTFOLIO_CONTENT = r"""
+PORTFOLIO_CONTENT = """
 ---
 
 
 
+\x1B[38;2;69;93;210m██████╗  ██████╗ ██████╗ ████████╗███████╗ ██████╗ ██╗     ██╗ ██████╗ \x1b[0m
+\x1B[38;2;69;93;190m██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝██╔════╝██╔═══██╗██║     ██║██╔═══██╗\x1b[0m
+\x1B[38;2;69;93;170m██████╔╝██║   ██║██████╔╝   ██║   █████╗  ██║   ██║██║     ██║██║   ██║\x1b[0m
+\x1B[38;2;69;93;150m██╔═══╝ ██║   ██║██╔══██╗   ██║   ██╔══╝  ██║   ██║██║     ██║██║   ██║\x1b[0m
+\x1B[38;2;69;93;130m██║     ╚██████╔╝██║  ██║   ██║   ██║     ╚██████╔╝███████╗██║╚██████╔╝\x1b[0m
+\x1B[38;2;69;93;110m╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝      ╚═════╝ ╚══════╝╚═╝ ╚═════╝ \x1b[0m
 
 
+\x1B[38;2;107;255;149mWelcome to My Portfolio! Explore some of the projects I've developed over time.\x1b[0m
 
-██████╗  ██████╗ ██████╗ ████████╗███████╗ ██████╗ ██╗     ██╗ ██████╗ 
-██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝██╔════╝██╔═══██╗██║     ██║██╔═══██╗
-██████╔╝██║   ██║██████╔╝   ██║   █████╗  ██║   ██║██║     ██║██║   ██║
-██╔═══╝ ██║   ██║██╔══██╗   ██║   ██╔══╝  ██║   ██║██║     ██║██║   ██║
-██║     ╚██████╔╝██║  ██║   ██║   ██║     ╚██████╔╝███████╗██║╚██████╔╝
-╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝      ╚═════╝ ╚══════╝╚═╝ ╚═════╝ 
-
-
-Welcome to My Portfolio! Explore some of the projects I've developed over time.
-
-===================================================================
-Websites
-===================================================================
-> https://github.com/AlteredMinds/QrPhishingApp
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+\x1b[38;5;208mWebsites\x1b[0m
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+> \x1b[38;5;113mhttps://github.com/AlteredMinds/QrPhishingApp\x1b[0m
    - Developed for a phishing audit experiment to educate and track user interactions with QR codes.
 
-> https://github.com/AlteredMinds/CLIWebapp
+> \x1b[38;5;113mhttps://github.com/AlteredMinds/CLIWebapp\x1b[0m
    - The site you’re currently visiting.
 
-===================================================================
-Apps
-===================================================================
-> https://github.com/AlteredMinds/Calculator
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+\x1b[38;5;208mApps\x1b[0m
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+> \x1b[38;5;113mhttps://github.com/AlteredMinds/Calculator\x1b[0m
    - A simple calculator built with .NET and C# to challenge my programming skills.
 
-> https://github.com/AlteredMinds/EcoServerUtility
+> \x1b[38;5;113mhttps://github.com/AlteredMinds/EcoServerUtility\x1b[0m
    - An application for managing a game server I ran from home for the game ECO. created with .NET and C#.
 
-===================================================================
-Scripts
-===================================================================
-> http://www.planet-express.delivery/hahahash.htm
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+\x1b[38;5;208mScripts\x1b[0m
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+> \x1b[38;5;113mhttp://www.planet-express.delivery/hahahash.htm\x1b[0m
    - A fun algorithm that generates a salted hash from a username and password.
 
-> https://github.com/AlteredMinds/OTCNetConfig
+> \x1b[38;5;113mhttps://github.com/AlteredMinds/OTCNetConfig\x1b[0m
    - A PowerShell script for managing network settings on school workstations.
 
-> https://github.com/AlteredMinds/AD_UserCreator
+> \x1b[38;5;113mhttps://github.com/AlteredMinds/AD_UserCreator\x1b[0m
    - A PowerShell script for creating Active Directory users with autogenerated credentials.
 
-===================================================================
-Miscellaneous
-===================================================================
-> https://github.com/orgs/Altered-Eco-Server/repositories
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+\x1b[38;5;208mMiscellaneous\x1b[0m
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+> \x1b[38;5;113mhttps://github.com/orgs/Altered-Eco-Server/repositories\x1b[0m
    - A repository of mods I created in C# for my ECO game server.
    
 """
 
-RESUME_CONTENT = r"""
+RESUME_CONTENT = """
 ---
 
 
 
+\x1B[38;2;69;93;210m██████╗ ███████╗███████╗██╗   ██╗███╗   ███╗███████╗\x1b[0m
+\x1B[38;2;69;93;190m██╔══██╗██╔════╝██╔════╝██║   ██║████╗ ████║██╔════╝\x1b[0m
+\x1B[38;2;69;93;170m██████╔╝█████╗  ███████╗██║   ██║██╔████╔██║█████╗  \x1b[0m
+\x1B[38;2;69;93;150m██╔══██╗██╔══╝  ╚════██║██║   ██║██║╚██╔╝██║██╔══╝  \x1b[0m
+\x1B[38;2;69;93;130m██║  ██║███████╗███████║╚██████╔╝██║ ╚═╝ ██║███████╗\x1b[0m
+\x1B[38;2;69;93;110m╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝\x1b[0m
 
 
-
-██████╗ ███████╗███████╗██╗   ██╗███╗   ███╗███████╗
-██╔══██╗██╔════╝██╔════╝██║   ██║████╗ ████║██╔════╝
-██████╔╝█████╗  ███████╗██║   ██║██╔████╔██║█████╗  
-██╔══██╗██╔══╝  ╚════██║██║   ██║██║╚██╔╝██║██╔══╝  
-██║  ██║███████╗███████║╚██████╔╝██║ ╚═╝ ██║███████╗
-╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝
-
-
-===================================================================
-Christopher A. Bates
+\x1B[38;2;107;255;149mChristopher A. Bates
 IT Support Specialist / Cybersecurity Student
-(417)771-0843 | chris@bates.contact | linkedin.com/in/chris-bat3s
-===================================================================
-Summary
-===================================================================
+(417)771-0843 | chris@bates.contact | linkedin.com/in/chris-bat3s\x1b[0m
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+\x1b[38;5;208mSummary\x1b[0m
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
 
 Highly motivated and detail-oriented cybersecurity student with a strong foundation in information security, programming, and troubleshooting. 
 Seeking a entry level role where I can apply my technical skills and passion for problem solving to continue to learn and gain experience.
 
-===================================================================
-Skills
-===================================================================
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+\x1b[38;5;208mSkills\x1b[0m
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
 
-- **Network Troubleshooting**     Resolving complex connectivity issues with knowledge of the OSI model and tools like ping, nslookup, and traceroute.
-- **Information Security**        Assessing and managing security to maintain data confidentiality, availability, and integrity.
-- **Virtualization**              Deploying and managing virtual machines and networks.
-- **Windows Server and Client**   Managing DHCP, DNS, Group Policy, Hyper-V, and Active Directory, with experience promoting to DC and adding roles and features.
-- **Cloud Services**              Deploying and managing Azure cloud services.
-- **Programming & Scripting**     Flask, HTML, JavaScript, CSS, C#, Python, Bash, and PowerShell, with experience in automation and developing scripts.
-- **Linux Systems**               Linux administration and CLI operations.
-- **Cisco Networking**            Configuring and troubleshooting Cisco routers and switches.
-- **Interpersonal Skills**        Proven ability to build strong customer relationships and work with diverse teams.
+- \x1b[38;5;113mNetwork Troubleshooting\x1b[0m     \x1B[38;2;180;180;180mResolving complex connectivity issues with knowledge of the OSI model and tools like ping, nslookup, and traceroute.\x1b[0m
+- \x1b[38;5;113mInformation Security\x1b[0m        \x1B[38;2;180;180;180mAssessing and managing security posture to maintain data confidentiality, availability, and integrity.\x1b[0m
+- \x1b[38;5;113mVirtualization\x1b[0m              \x1B[38;2;180;180;180mDeploying and managing virtual machines and networks.\x1b[0m
+- \x1b[38;5;113mWindows Server and Client\x1b[0m   \x1B[38;2;180;180;180mManaging DHCP, DNS, Group Policy, Hyper-V, and Active Directory, with experience promoting to DC and adding roles and features.\x1b[0m
+- \x1b[38;5;113mCloud Services\x1b[0m              \x1B[38;2;180;180;180mDeploying and managing Azure cloud services.\x1b[0m
+- \x1b[38;5;113mProgramming & Scripting\x1b[0m     \x1B[38;2;180;180;180mFlask, HTML, JavaScript, CSS, C#, Python, Bash, and PowerShell, with experience in developing scripts for automation.\x1b[0m
+- \x1b[38;5;113mLinux Systems\x1b[0m               \x1B[38;2;180;180;180mServer administration and CLI operations.\x1b[0m
+- \x1b[38;5;113mCisco Networking\x1b[0m            \x1B[38;2;180;180;180mConfiguring and troubleshooting Cisco routers and switches.\x1b[0m
+- \x1b[38;5;113mInterpersonal Skills\x1b[0m        \x1B[38;2;180;180;180mProven ability to build strong customer relationships and work with diverse teams.\x1b[0m
 
-===================================================================
-Education
-===================================================================
-- A.A.S. in Cybersecurity, Ozark Technical Community College (Expected 2025) 
-- High School Diploma, Val Verde High School (2005)
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+\x1b[38;5;208mEducation\x1b[0m
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+- \x1b[38;5;113mA.A.S. in Cybersecurity,\x1b[0m Ozark Technical Community College \x1B[38;2;180;180;180m(Expected 2025)\x1b[0m
+- \x1b[38;5;113mHigh School Diploma,\x1b[0m Val Verde High School \x1B[38;2;180;180;180m(2005)\x1b[0m
 
-===================================================================
-Certifications
-===================================================================
-- CompTIA Security+
-- CompTIA A+
-- TestOut Hybrid Server Pro | Core (proctored by instructor)
-- Comptia Linux+ (currently in progress)
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+\x1b[38;5;208mCertifications\x1b[0m
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+- \x1b[38;5;113mCompTIA Security+\x1b[0m
+- \x1b[38;5;113mCompTIA A+\x1b[0m
+- \x1b[38;5;113mTestOut Hybrid Server Pro | Core\x1b[0m \x1B[38;2;180;180;180m(proctored by instructor)\x1b[0m
+- \x1b[38;5;113mCompTIA Linux+\x1b[0m \x1B[38;2;180;180;180m(currently in progress)\x1b[0m
 
-===================================================================
-Experience
-===================================================================
-- Problem Solver, Amazon (2023 - Present)
-  * Troubleshoot and resolve order and package issues.
-  * Use Amazons internal systems and tools.
-  * Adhere to policies and procedures to protect customer PII.
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+\x1b[38;5;208mExperience\x1b[0m
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+- \x1b[38;5;113mProblem Solver, \x1b[38;5;113mAmazon\x1b[0m \x1B[38;2;180;180;180m(2023 - Present)
+  \x1b[38;5;113m*\x1b[0m Troubleshoot and resolved order and package issues.
+  \x1b[38;5;113m*\x1b[0m Used Amazons internal systems and tools.
+  \x1b[38;5;113m*\x1b[0m Adhered to policies and procedures to protect customer PII.
   
-- Shift Manager, Hardees (2017 - 2023)
-  * Managed restaurant operations
-  * Ensured customer satisfaction
-  * Optimized labor based on volume
-  * Handled closing procedures.  
+- \x1b[38;5;113mShift Manager, \x1b[38;5;113mHardees\x1b[0m \x1B[38;2;180;180;180m(2017 - 2023)\x1b[0m
+  \x1b[38;5;113m*\x1b[0m Managed restaurant operations
+  \x1b[38;5;113m*\x1b[0m Ensured customer satisfaction
+  \x1b[38;5;113m*\x1b[0m Optimized labor based on volume
+  \x1b[38;5;113m*\x1b[0m Handled closing procedures.  
   
-===================================================================
-Achivements
-===================================================================  
-- Dean's List: Fall 2023, Spring 2024
-- Member, Phi Theta Kappa Honor Society 
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+\x1b[38;5;208mAchivements\x1b[0m
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+- \x1b[38;5;113mDean's List\x1b[0m Fall 2023, Spring 2024
+- \x1b[38;5;113mPhi Theta Kappa Honor Society\x1b[0m, Member
 """
 
-ABOUT_CONTENT = r"""
+ABOUT_CONTENT = """
 ---
 
 
 
+\x1B[38;2;69;93;210m █████╗ ██████╗  ██████╗ ██╗   ██╗████████╗\x1b[0m
+\x1B[38;2;69;93;190m██╔══██╗██╔══██╗██╔═══██╗██║   ██║╚══██╔══╝\x1b[0m
+\x1B[38;2;69;93;170m███████║██████╔╝██║   ██║██║   ██║   ██║   \x1b[0m
+\x1B[38;2;69;93;150m██╔══██║██╔══██╗██║   ██║██║   ██║   ██║   \x1b[0m
+\x1B[38;2;69;93;130m██║  ██║██████╔╝╚██████╔╝╚██████╔╝   ██║   \x1b[0m
+\x1B[38;2;69;93;110m╚═╝  ╚═╝╚═════╝  ╚═════╝  ╚═════╝    ╚═╝   \x1b[0m
 
 
-
- █████╗ ██████╗  ██████╗ ██╗   ██╗████████╗
-██╔══██╗██╔══██╗██╔═══██╗██║   ██║╚══██╔══╝
-███████║██████╔╝██║   ██║██║   ██║   ██║   
-██╔══██║██╔══██╗██║   ██║██║   ██║   ██║   
-██║  ██║██████╔╝╚██████╔╝╚██████╔╝   ██║   
-╚═╝  ╚═╝╚═════╝  ╚═════╝  ╚═════╝    ╚═╝
-
-
-............................................................:::::::::;;;;;;;;;;;;
-...........................................................::::::::;;:;;;;;;;;;;;
-...........................................................::::::::::;;;;;;;;;;;;
-................................xX$&&&&&X+X&&&$:...........:::::::::;;;;;;;;;;;;;
-.............................$&$X:+;;;;++++;+$&&&&&........:::::;:;;;;;;;;;;;;;;;
-.......................X$$$$&&x:..xx;;;+++;+;X+Xx&&;$&&....::::::::;;;;;;;;;;;;;;
-...................$$&$&&$$&&;+x:;;X+;;++Xx+x++$x+$&&X&&&&.::::::;;;;;;;;;;;;;;;;
-.................$&&$$$&&&&&;+:;;x;+$&&X$X$x+X&$X$+&&&&&&&&X::::::;;;;;;;;;;;;;;;
-.................&&$$$$&&&&&x:XxXX;+$&X+$&&$x;$&&Xx$X&&&&&&&x::;:;:;;;;;;;;;;;;;;
-................X&&$$&&&&&&xx&X&&&XX$XX&&X$&&$XX&&&&&&&&&&&&&::;::;;;;;;;;;;;;;;;
-................$&&&&&&$X$;$;:X$XX$$....;&$&&&;xx$&&&&&&&&&&&;:;;:;;;;;;;;;;;;;;;
-................XX$x+:++$;:;;;&..x:x:X;..+;::;$x$$:$;&X+x&&&&$:::;;;;;;;;;;;;;;;;
-.............X$:$.x&.$X&x&;;x:..::+.$&+&&X:.::;:+&&&$X;X:;$&X&::;;;;;;;;;;;;;;;;;
-...........&::x;+&x&&x.:;:$xx;:...:.:..::.::;:;;;+Xxx+$x$&+++&&&&:;;;;;;;;;;;;;;;
-...........$;+:x;$&+;;&&+;&&&&&&&&&&&&&&&&&&&&&&&&$&;$:x;+++++;;:&&;;;;;;;;;;;;;;
-.........X.$;.;:xx:;::X&$;+&&&&x;:::;;::::;;;+X$&&&$X;;&::Xxx:$&&&+XX;;;;;;;;;;;+
-..........X;;:..x+x$$.&&&:........::::::::::;;++++xX$$&&&::$+:;:.&:;&;;;;;;;;;;;;
-...........Xxx$::;;+$:.....................::::;;++xx$$$&&$+x:;:X:;+x;;;;;;;;;;+;
-............;++;$&$+....::::::...............:::;+xxxXXX$$&&&&X+&;x;;;;+;+;++++++
-...............&&&&x.:::::+:Xx+;.:..........:;+xxX$+X$$XXX$&&&&&&;+++;+;+;+++++++
-................&&&x.:::......:.........:::::;;::;:;+X$$XX$&&&&+++++;++++++++++++
-................:+X+..:......;+x+::....:+XX+:;;:..::;+XXXXX&&$X++++++++++++++++++
-...............:..:::..::;X.+X+x+X....:;XX$X&X.:&Xx&X+XXXXX&XX$++++++++++++++++++
-...............;..:::..:::....::;::::::;xXX$$$+;;+++xX$xxxX$Xx$++++++++++++++++++
-..................X::..:::.....:.::::::;XXXXxXXx++++xXXXXXX$&Xx++++++++++++++++++
-.................:x::::...........:::::+XXXxxxxXx++++xxXXXX$&X+++++++++++++++++++
-.................:X::.............::.::;xXXXxxxx+++;++xXXXX$&X+++++++++++++++++++
-..................X..............;:...:;+XXX$Xx+;++++xxxXXX&XX+++++++++++++++++++
-..................$:..........::.......:+Xx+X$x::;;++xxXXXX&X++++++++++++++++++++
-..................;:.........::...+::.:;X&;;x+:::;;+xxXXXXX&X++++++++++++++++++++
-..............&&&&X:.........::.::;:::;:xxXXxxx;;;;+xxXXXX&X+++++++++++++++++++++
-...........&&&&&&&&;:.......;::::+xx+x$xX&$XXXXXXx++xxXXX$&+++++++++++++x++++++++
-........&&&&&&&&&&&&;::....;:+X$x$X$$&$$$$&&$&$$$XXxxxXXX&&++++++++++++++++++++++
-......&&&&&&$&&&&&&&Xx;::..:xxx+xx$x&$$x$&$&&&$&$&XxxX$$$&&&x++++++++++++++++++++
-....&&&&&&&&&&&&&&&&&&X+::::;+++XXX$$xx$&&&&&$$XX$XXXX&&&&&&&++++++++++++++++++++
-...:&&&&&&&&&&&&&&&&&&&XX+;++++++xxXxxXXXXXXXXXXX$XX$&&&&&&&&&&++++++++++++++++++
-....&&&&&&&&&&&&&&&&&&&&&$$$$x+x+xxX$&$$$$XXXXXX$&&$&&&&&&&&&&&&&xx++++++++++++++
-&&&&&&&&&&&&&&&&&&&&&&&&&&&&&XxxxxxxX&&&$XXXXXX$&&&&&&&&&&&&&&&&&&&&&&&&&x+++++++
+\x1B[38;2;117;117;117m.................................................................................
+.................................................................................
+.................................................................................
+................................xX$&&&&&X+X&&&$:.................................
+.............................$&$X:+;;;;++++;+$&&&&&..............................
+.......................X$$$$&&x:..xx;;;+++;+;X+Xx&&;$&&..........................
+...................$$&$&&$$&&;+x:;;X+;;++Xx+x++$x+$&&X&&&&.......................
+.................$&&$$$&&&&&;+:;;x;+$&&X$X$x+X&$X$+&&&&&&&&X.....................
+.................&&$$$$&&&&&x:XxXX;+$&X+$&&$x;$&&Xx$X&&&&&&&x....................
+................X&&$$&&&&&&xx&X&&&XX$XX&&X$&&$XX&&&&&&&&&&&&&:...................
+................$&&&&&&$X$;$;:X$XX$$....;&$&&&;xx$&&&&&&&&&&&;...................
+................XX$x+:++$;:;;;&..x:x:X;..+;::;$x$$:$;&X+x&&&&$...................
+.............X$:$.x&.$X&x&;;x:..::+.$&+&&X:.::;:+&&&$X;X:;$&X&...................
+...........&::x;+&x&&x.:;:$xx;:...:.:..::.::;:;;;+Xxx+$x$&+++&&&&................
+...........$;+:x;$&+;;&&+;&&&&&&&&&&&&&&&&&&&&&&&&$&;$:x;+++++;;:&&..............
+.........X.$;.;:xx:;::X&$;+&&&&x;:::;;::::;;;+X$&&&$X;;&::Xxx:$&&&+XX............
+..........X;;:..x+x$$.&&&:........::::::::::;;++++xX$$&&&::$+:;:.&:;&............
+...........Xxx$::;;+$:.....................::::;;++xx$$$&&$+x:;:X:;+x............
+............;++;$&$+....::::::...............:::;+xxxXXX$$&&&&X+&;x;.............
+...............&&&&x.:::::+:Xx+;.:..........:;+xxX$+X$$XXX$&&&&&&;+..............
+................&&&x.:::......:.........:::::;;::;:;+X$$XX$&&&&+++...............
+................:+X+..:......;+x+::....:+XX+:;;:..::;+XXXXX&&$X++................
+...............:..:::..::;X.+X+x+X....:;XX$X&X.:&Xx&X+XXXXX&XX$..................
+...............;..:::..:::....::;::::::;xXX$$$+;;+++xX$xxxX$Xx$..................
+..................X::..:::.....:.::::::;XXXXxXXx++++xXXXXXX$&Xx..................
+.................:x::::...........:::::+XXXxxxxXx++++xxXXXX$&X...................
+.................:X::.............::.::;xXXXxxxx+++;++xXXXX$&X...................
+..................X..............;:...:;+XXX$Xx+;++++xxxXXX&XX...................
+..................$:..........::.......:+Xx+X$x::;;++xxXXXX&X....................
+..................;:.........::...+::.:;X&;;x+:::;;+xxXXXXX&X....................
+..............&&&&X:.........::.::;:::;:xxXXxxx;;;;+xxXXXX&X.....................
+...........&&&&&&&&;:.......;::::+xx+x$xX&$XXXXXXx++xxXXX$&......................
+........&&&&&&&&&&&&;::....;:+X$x$X$$&$$$$&&$&$$$XXxxxXXX&&......................
+......&&&&&&$&&&&&&&Xx;::..:xxx+xx$x&$$x$&$&&&$&$&XxxX$$$&&&x....................
+....&&&&&&&&&&&&&&&&&&X+::::;+++XXX$$xx$&&&&&$$XX$XXXX&&&&&&&....................
+...:&&&&&&&&&&&&&&&&&&&XX+;++++++xxXxxXXXXXXXXXXX$XX$&&&&&&&&&&..................
+....&&&&&&&&&&&&&&&&&&&&&$$$$x+x+xxX$&$$$$XXXXXX$&&$&&&&&&&&&&&&&xx..............
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&XxxxxxxX&&&$XXXXXX$&&&&&&&&&&&&&&&&&&&&&&&&&x.......
 &&&&&&&&&&&&&&&&&&&&&&&&&$&&&&$XXxxxX$$XXXXXX$$&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 &&&&&&&&&&&&&&&&&&&&&&&&&&$&&&&&XXX$X$$XXX$$$&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 &&&&&&&&&&&&&&&&&&&&&&&&&&&$X&&&$$$XXXXXXX$&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
@@ -248,51 +234,48 @@ ABOUT_CONTENT = r"""
 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&\x1b[0m
 
-Hello! I’m Chris Bates, an IT student with a love for technology and a passion for learning. Currently, I’m studying Cybersecurity at Ozarks Technical Community Collage.
+\x1B[38;2;107;255;149mHello! I’m Chris Bates, an IT student with a love for technology and a passion for learning. Currently, I’m studying Cybersecurity at Ozarks Technical Community Collage.\x1b[0m
 
-===================================================================
-My Journey
-===================================================================
-My journey into computer technology began at a young age when my dad got our first computer.
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+\x1b[38;5;208mMy Journey\x1b[0m
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+\x1b[38;5;113mMy journey into computer technology began at a young age when my dad got our first computer.
 I began to learn how to use MS-DOS and was fasinated with the CLI. Later, I would have my very own Windows 95 system that I would fall in love with.
 In 10th grade, I discovered web development using HTML and Notepad. This would ignite my passion for programming and would learn how to scripts. Over the years i would also use computers as
 a creative outlet from programming, graphic design, and music production to developing game mods. What started as simple hobbies soon turned into a huge interest in Cybersecurity. 
-Over the years, my enthusiasm has only grown, fueling my desire to tackle new challenges and learn.
+Over the years, my enthusiasm has only grown, fueling my desire to tackle new challenges and learn.\x1b[0m
 
-===================================================================
-Looking Forward
-===================================================================
-As I continue my journey, I am seeking internships and entry-level positions to apply my knowledge and gain real-world experience. 
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+\x1b[38;5;208mLooking Forward\x1b[0m
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+\x1b[38;5;113mAs I continue my journey, I am seeking internships and entry-level positions to apply my knowledge and gain real-world experience. 
 
 If you have any opportunities or would like to connect, please feel free to reach out to me via email at chris@bates.contact 
-or connect with me on LinkedIn at linkedin.com/in/chris-bat3s.
+or connect with me on LinkedIn at linkedin.com/in/chris-bat3s.\x1b[0m
 
 Thank you for visiting my page!
 """
 
-CONTACT_CONTENT = r"""
+CONTACT_CONTENT = """
 ---
 
 
 
-
-
-
- ██████╗ ██████╗ ███╗   ██╗████████╗ █████╗  ██████╗████████╗
-██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██╔══██╗██╔════╝╚══██╔══╝
-██║     ██║   ██║██╔██╗ ██║   ██║   ███████║██║        ██║   
-██║     ██║   ██║██║╚██╗██║   ██║   ██╔══██║██║        ██║   
-╚██████╗╚██████╔╝██║ ╚████║   ██║   ██║  ██║╚██████╗   ██║   
- ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝   ╚═╝   
+\x1B[38;2;69;93;210m ██████╗ ██████╗ ███╗   ██╗████████╗ █████╗  ██████╗████████╗\x1b[0m
+\x1B[38;2;69;93;190m██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██╔══██╗██╔════╝╚══██╔══╝\x1b[0m
+\x1B[38;2;69;93;170m██║     ██║   ██║██╔██╗ ██║   ██║   ███████║██║        ██║   \x1b[0m
+\x1B[38;2;69;93;150m██║     ██║   ██║██║╚██╗██║   ██║   ██╔══██║██║        ██║   \x1b[0m
+\x1B[38;2;69;93;130m╚██████╗╚██████╔╝██║ ╚████║   ██║   ██║  ██║╚██████╗   ██║   \x1b[0m
+\x1B[38;2;69;93;110m ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝   ╚═╝   \x1b[0m
 
 
 - Phone: 417-771-0843
 - Email: chris@bates.contact
-===================================================================
-Social
-===================================================================
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
+\x1b[38;5;208mSocial\x1b[0m
+\x1B[38;2;117;117;117m===================================================================\x1b[0m
 - LinkedIn: linkedin.com/in/chris-bat3s
 - Github: Github.com/AlteredMinds
 """
@@ -335,5 +318,13 @@ def contact():
         return render_template('denied.html')
     return Response(CONTACT_CONTENT, mimetype='text/plain')    
 
+@app.route('/test')
+def test():
+    user_agent = request.headers.get('User-Agent')
+    if not is_cli_user_agent(user_agent):
+        return render_template('denied.html')
+    red_text = "\033[31mThis is red text\033[0m"
+    return Response(red_text, mimetype='text/plain')   
+
 if __name__ == '__main__':
-    app.run()	
+    app.run()
