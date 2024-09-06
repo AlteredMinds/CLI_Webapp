@@ -270,19 +270,17 @@ CONTACT_CONTENT = """
 \x1B[38;2;69;93;110m ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝   ╚═╝   \x1b[0m
 
 
-- Phone: 417-771-0843
-- Email: chris@bates.contact
-- GPG Key: https://chris.bates.contact/pubkey
+- \x1b[38;5;113mPhone:\x1b[0m 417-771-0843
+- \x1b[38;5;113mEmail:\x1b[0m chris@bates.contact
+- \x1b[38;5;113mGPG Key:\x1b[0m https://chris.bates.contact/pubkey
 \x1B[38;2;117;117;117m===================================================================\x1b[0m
 \x1b[38;5;208mSocial\x1b[0m
 \x1B[38;2;117;117;117m===================================================================\x1b[0m
-- LinkedIn: linkedin.com/in/chris-bat3s
-- Github: Github.com/AlteredMinds
+- \x1b[38;5;113mLinkedIn:\x1b[0m linkedin.com/in/chris-bat3s
+- \x1b[38;5;113mGithub:\x1b[0m Github.com/AlteredMinds
 """
 
-KEY_CONTENT = """
----
------BEGIN PGP PUBLIC KEY BLOCK-----
+KEY_CONTENT = """-----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mQGNBGbaN3EBDADLR1gvfqtszlLl/z+7EdJ/eiS83Y0wfXn0puVG0gUP8dDwR6Ad
 yeD83Yn7yQT3EmmGN5Tx8Layg1C8UYGFVYw7oOcQo+xs0HMzUcu8quHSXTEXnq3A
