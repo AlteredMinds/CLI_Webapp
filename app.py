@@ -12,7 +12,7 @@ def is_cli_user_agent(user_agent):
     
 def get_instructions(user_agent):
     if 'curl' in user_agent.lower():
-        return "\x1B[38;2;135;192;137mUse 'curl https://chris.bates.contact/{route}' to navigate.\x1b[0m"
+        return "\x1B[38;2;135;192;137mUse 'cls & curl https://chris.bates.contact/{route}' to navigate.\x1b[0m"
     elif 'powershell' in user_agent.lower():
         return "\x1B[38;2;135;192;137mUse 'Write-Host (Invoke-WebRequest https://chris.bates.contact/{route}).Content' to navigate.\x1b[0m"
     return ""    
@@ -95,7 +95,6 @@ PORTFOLIO_CONTENT = """
 \x1B[38;2;117;117;117m===================================================================\x1b[0m
 > \x1b[38;5;113mhttps://github.com/orgs/Altered-Eco-Server/repositories\x1b[0m
    - A repository of mods I created in C# for my ECO game server.
-   
 """
 
 RESUME_CONTENT = """
@@ -273,11 +272,57 @@ CONTACT_CONTENT = """
 
 - Phone: 417-771-0843
 - Email: chris@bates.contact
+- GPG Key: https://chris.bates.contact/pubkey
 \x1B[38;2;117;117;117m===================================================================\x1b[0m
 \x1b[38;5;208mSocial\x1b[0m
 \x1B[38;2;117;117;117m===================================================================\x1b[0m
 - LinkedIn: linkedin.com/in/chris-bat3s
 - Github: Github.com/AlteredMinds
+"""
+
+KEY_CONTENT = """
+---
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+qA2zQhycY+k3NXlREku4v5NtSGrVY6tTQg==
+=BqYQ
+-----END PGP PUBLIC KEY BLOCK-----
 """
 
 @app.route('/')
@@ -318,13 +363,12 @@ def contact():
         return render_template('denied.html')
     return Response(CONTACT_CONTENT, mimetype='text/plain')    
 
-@app.route('/test')
+@app.route('/pubkey')
 def test():
     user_agent = request.headers.get('User-Agent')
     if not is_cli_user_agent(user_agent):
         return render_template('denied.html')
-    red_text = "\033[31mThis is red text\033[0m"
-    return Response(red_text, mimetype='text/plain')   
+    return Response(KEY_CONTENT, mimetype='text/plain')   
 
 if __name__ == '__main__':
-    app.run()
+    app.run()	
