@@ -1,8 +1,16 @@
-from flask import Flask, Response, request, render_template
+from flask import Flask, Response, request, render_template, jsonify
+from dotenv import load_dotenv
+import hashlib
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
 
-ALLOWED_USER_AGENTS = ['curl', 'wget', 'powershell']
+ALLOWED_USER_AGENTS = ['curl', 'powershell']
+secret_key = os.getenv('SECRET_KEY')
+passcode = os.getenv('CLI_HASHCODE')
+authorized_ips = {}
 
 def is_cli_user_agent(user_agent):
     for cli_agent in ALLOWED_USER_AGENTS:
@@ -10,12 +18,25 @@ def is_cli_user_agent(user_agent):
             return True
     return False
     
+def get_client_ip():
+    if request.headers.getlist("X-Forwarded-For"):
+        ip = request.headers.get('X-Forwarded-For', request.remote_addr).split(':')[0],
+    else:
+        ip = request.remote_addr
+    return ip    
+    
 def get_instructions(user_agent):
     if 'curl' in user_agent.lower():
-        return "\x1B[38;2;135;192;137mUse 'cls & curl https://chris.bates.contact/{route}?pass={passcode}' to navigate.\x1b[0m"
+        return "\x1B[38;2;135;192;137mUse 'curl https://chris.bates.contact/{route}' to navigate.\x1b[0m"
     elif 'powershell' in user_agent.lower():
-        return "\x1B[38;2;135;192;137mUse 'Write-Host (Invoke-WebRequest https://chris.bates.contact/{route}?pass={passcode}).Content' to navigate.\x1b[0m"
+        return "\x1B[38;2;135;192;137mUse 'Write-Host (Invoke-WebRequest https://chris.bates.contact/{route}).Content' to navigate.\x1b[0m"
     return ""    
+    
+def get_status(ip_addr):
+    msg = f"\x1B[38;2;135;192;137mSession status:\x1b[0m \x1B[38;2;186;5;5mLogged Out\x1b[0m"
+    if authorized_ips.get(ip_addr):
+        msg = f"\x1B[38;2;135;192;137mSession status:\x1b[0m \x1B[38;2;17;186;5mLogged In\x1b[0m"
+    return msg  
 
 HOME_TEMPLATE = """
 ---
@@ -30,7 +51,7 @@ HOME_TEMPLATE = """
 \x1B[38;2;69;93;110m ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═╝\x1b[0m
 
 \x1B[38;2;107;255;149mI'm Chris Bates, an IT student at Ozark Technical Community College pursuing a degree in Cybersecurity.
-I'm passionate about technology and committed to building a career in IT and cybersecurity.\x1b[0m
+I'm passionate about technology and committed to building a career in IT.\x1b[0m
 
 \x1b[38;5;208mFeel free to explore the following routes to learn more about me and my work:\x1b[0m
 
@@ -41,6 +62,7 @@ I'm passionate about technology and committed to building a career in IT and cyb
 
 \x1B[38;2;107;255;149mThank you for visiting!\x1b[0m
 
+{status}
 {instructions}
 """
 
@@ -112,7 +134,7 @@ RESUME_CONTENT = """
 \x1B[38;2;69;93;110m╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝\x1b[0m
 
 
-\x1B[38;2;107;255;149mChris Bates
+\x1B[38;2;107;255;149mChristopher A. Bates
 IT Support Specialist / Cybersecurity Student
 (417)771-0843 | chris@bates.contact | linkedin.com/in/chris-bat3s\x1b[0m
 \x1B[38;2;117;117;117m===================================================================\x1b[0m
@@ -139,6 +161,7 @@ Seeking a entry level role where I can apply my technical skills and passion for
 \x1b[38;5;208mEducation\x1b[0m
 \x1B[38;2;117;117;117m===================================================================\x1b[0m
 - \x1b[38;5;113mA.A.S. in Cybersecurity,\x1b[0m Ozark Technical Community College \x1B[38;2;180;180;180m(Expected 2025)\x1b[0m
+- \x1b[38;5;113mHigh School Diploma,\x1b[0m Val Verde High School \x1B[38;2;180;180;180m(2005)\x1b[0m
 
 \x1B[38;2;117;117;117m===================================================================\x1b[0m
 \x1b[38;5;208mCertifications\x1b[0m
@@ -273,7 +296,7 @@ CONTACT_CONTENT = """
 \x1B[38;2;69;93;110m ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝   ╚═╝   \x1b[0m
 
 
-- \x1b[38;5;113mPhone:\x1b[0m [Phonenumber]
+- \x1b[38;5;113mPhone:\x1b[0m 417-771-0843
 - \x1b[38;5;113mEmail:\x1b[0m chris@bates.contact
 - \x1b[38;5;113mGPG Key:\x1b[0m https://chris.bates.contact/pubkey
 \x1B[38;2;117;117;117m===================================================================\x1b[0m
@@ -326,15 +349,15 @@ qA2zQhycY+k3NXlREku4v5NtSGrVY6tTQg==
 -----END PGP PUBLIC KEY BLOCK-----
 """
 
-ERROR_CONTENT = """Command unrecognized. Please check your command and try again. 
+ERROR_CONTENT = """Command unrecognized. Please check your command and try again.
 """
 
-DENIED_CONTENT = """You are unauthorized to access this content. Please provide the passcode.
+DENIED_CONTENT = """You are unauthorized to access this content. To authorize this session use 'https://chris.bates.contact?pass={passcode}'.
 """
 
 def is_authorized(id):
-    valid_id = "secret_passcode"
-    return id == valid_id
+    id_hash = hashlib.sha256(id.encode()).hexdigest()
+    return id_hash == passcode
 
 @app.route('/')
 @app.route('/h')
@@ -343,11 +366,17 @@ def is_authorized(id):
 @app.route('/home')
 def home():
     user_agent = request.headers.get('User-Agent')
+    client_ip = get_client_ip()
     if not is_cli_user_agent(user_agent):
         return render_template('denied.html')       
     
+    id = request.args.get('pass') or "NONE"
+    if is_authorized(id):
+        authorized_ips[client_ip] = True
+    
     instructions = get_instructions(user_agent)
-    home_ascii_art = HOME_TEMPLATE.format(instructions=instructions)
+    status = get_status(client_ip)
+    home_ascii_art = HOME_TEMPLATE.format(instructions=instructions, status=status)
     
     return Response(home_ascii_art, mimetype='text/plain')
 
@@ -363,8 +392,8 @@ def blog():
     user_agent = request.headers.get('User-Agent')
     if not is_cli_user_agent(user_agent):
         return render_template('denied.html')
-    id = request.args.get('pass')    
-    if not is_authorized(id):
+    client_ip = get_client_ip()
+    if not authorized_ips.get(client_ip):
         return Response(DENIED_CONTENT, mimetype='text/plain')
         
     return Response(PORTFOLIO_CONTENT, mimetype='text/plain')
@@ -379,8 +408,8 @@ def resume():
     user_agent = request.headers.get('User-Agent')
     if not is_cli_user_agent(user_agent):
         return render_template('denied.html')
-    id = request.args.get('pass')    
-    if not is_authorized(id):
+    client_ip = get_client_ip()
+    if not authorized_ips.get(client_ip):
         return Response(DENIED_CONTENT, mimetype='text/plain')
         
     return Response(RESUME_CONTENT, mimetype='text/plain')
@@ -394,8 +423,8 @@ def about():
     user_agent = request.headers.get('User-Agent')
     if not is_cli_user_agent(user_agent):
         return render_template('denied.html')
-    id = request.args.get('pass')    
-    if not is_authorized(id):
+    client_ip = get_client_ip()
+    if not authorized_ips.get(client_ip):
         return Response(DENIED_CONTENT, mimetype='text/plain')
         
     return Response(ABOUT_CONTENT, mimetype='text/plain')
@@ -411,11 +440,11 @@ def contact():
     user_agent = request.headers.get('User-Agent')
     if not is_cli_user_agent(user_agent):
         return render_template('denied.html')
-    id = request.args.get('pass')    
-    if not is_authorized(id):
+    client_ip = get_client_ip()
+    if not authorized_ips.get(client_ip):
         return Response(DENIED_CONTENT, mimetype='text/plain')
         
-    return Response(CONTACT_CONTENT, mimetype='text/plain')    
+    return Response(CONTACT_CONTENT, mimetype='text/plain')
 
 @app.route('/pu')
 @app.route('/pub')
@@ -427,13 +456,47 @@ def pubkey():
     if not is_cli_user_agent(user_agent):
         return render_template('denied.html')
     return Response(KEY_CONTENT, mimetype='text/plain') 
+    
+@app.route('/logout')
+def logout():
+    user_agent = request.headers.get('User-Agent')
+    if not is_cli_user_agent(user_agent):
+        return render_template('denied.html')
+    client_ip = get_client_ip()
+    if authorized_ips.get(client_ip):
+        authorized_ips[client_ip] = False
+        
+    return Response("Session Ended", mimetype='text/plain')
+    
+@app.route('/clear')
+def clear():
+    user_agent = request.headers.get('User-Agent')
+    if not is_cli_user_agent(user_agent):
+        return render_template('denied.html')
+    
+    key = request.args.get('key')
+    if key != secret_key:
+        return Response(ERROR_CONTENT, mimetype='text/plain')
+    authorized_ips.clear()
+    return Response("Cleared all Sessions", mimetype='text/plain')     
+    
+@app.route('/print')
+def print():
+    user_agent = request.headers.get('User-Agent')
+    if not is_cli_user_agent(user_agent):
+        return render_template('denied.html')
+    
+    key = request.args.get('key')
+    if key != secret_key:
+        return Response(ERROR_CONTENT, mimetype='text/plain')
+    return jsonify(authorized_ips)   
 
 @app.errorhandler(404)
 def page_not_found(e):
     user_agent = request.headers.get('User-Agent')
     if not is_cli_user_agent(user_agent):
         return render_template('denied.html')
-    return Response(ERROR_CONTENT, mimetype='text/plain')  
+    return Response(ERROR_CONTENT, mimetype='text/plain')
 
 if __name__ == '__main__':
-    app.run()	
+    app.run()
