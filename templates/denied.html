@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLI Access Only</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            color: #dcdcdc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background: #1e1e1e;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 1) 1px, rgba(0, 0, 0, 0.3) 10px) 0 0,
+                        linear-gradient(0deg, rgba(0, 0, 0, 1) 1px, rgba(0, 0, 0, 0.3) 1px) 0 0;
+            background-size: 100% 5px, 100% 5px;
+            background-position: 0 0, 0 2px;
+            animation: scanlines 3.5s linear infinite;
+        }
+        @keyframes scanlines {
+            from { background-position: 0 0, 0 2px; }
+            to { background-position: 0 10px, 0 12px; }
+        }
+        .terminal {
+            background: #000;
+            padding: 20px;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+            border: 1px solid #333;
+            line-height: 1.5;
+            position: relative;
+            animation: flicker 0.1s infinite;
+        }
+        .line {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        .prompt {
+            color: #33ff33;
+            display: inline;
+        }
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1em;
+            background: #dcdcdc;
+            animation: blink 1s step-start infinite;
+        }
+        @keyframes blink {
+            50% { background: transparent; }
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            100% { opacity: 0.85; }
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+<p class="line"><span class="prompt">user@site:~$</span> <span style="color: #ffcc66;">echo</span> Welcome! This site operates via the command line interface only.</p>
+<p class="line"><span class="prompt">user@site:~$</span> </p>
+<p class="line"><span class="prompt">user@site:~$</span> <span style="color: #ffcc66;">echo</span> To access the site, use one of the following commands:</p>
+<p class="line"><span class="prompt">user@site:~$</span> <span style="color: #ffcc66;">curl https://chris.bates.contact</span> (Linux and CMD)</p>
+<p class="line"><span class="prompt">user@site:~$</span> <span style="color: #ffcc66;">Invoke-RestMethod https://chris.bates.contact</span> (PowerShell)<span class="cursor"></span></p>
+
+    </div>
+</body>
+</html>
